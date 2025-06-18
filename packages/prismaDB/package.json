@@ -2,6 +2,10 @@
   "name": "@repo/prismadb",
   "version": "1.0.0",
   "main": "index.js",
+  "exports":{
+    "./client":"./src/index.ts"
+  },
+  
   "devDependencies": {
     "@repo/typescript-config": "workspace:*"
   },
