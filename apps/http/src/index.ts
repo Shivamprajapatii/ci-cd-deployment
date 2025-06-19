@@ -1,5 +1,5 @@
 import express from "express";
-
+import {client} from "@repo/prismadb/client";
 const app = express();
 
 
@@ -7,6 +7,36 @@ app.get("/", (req,res) => {
     res.json({
         message:"Hello Dear"
     });
+});
+
+app.post("/signup", async(req,res) => {
+    const { username, password, email } = req.body;
+
+    const isUser = await client.user.findFirst({
+        where : {
+            email : email
+        }
+    });
+
+    if(isUser){
+        res.json({
+            message : "User already exist"
+        });
+    };
+
+    const userData =  await client.user.create({
+        data :{
+            username : username,
+            password : password,
+            email : email
+        }
+    });
+
+    res.json({
+        message : "User Signup Successfully",
+        userData
+    })
+
 });
 
 app.listen(4000, () => {
