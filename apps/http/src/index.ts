@@ -2,6 +2,8 @@ import express from "express";
 import {client} from "@repo/prismadb/client";
 const app = express();
 
+app.use(express.json());
+
 
 app.get("/", (req,res) => {
     res.json({
@@ -22,6 +24,7 @@ app.post("/signup", async(req,res) => {
         res.json({
             message : "User already exist"
         });
+        return;
     };
 
     const userData =  await client.user.create({

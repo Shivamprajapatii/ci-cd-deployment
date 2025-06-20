@@ -1,21 +1,15 @@
-"use client"
 import {client} from "@repo/prismadb/client";
+import { use } from "react";
 
-export default function Home() {
+export default async function Home() {
+  const user = await client.user.findFirst();
   
   return (
-    <>
-    <h1>Hey Shivam</h1>
-    <button onClick={ async () => {
-      const data = await client.user.create({
-    "data":{
-      "id":"1",
-      "username" :"SHivam",
-      "password" :"HelloWorld",
-      "email":"shivam@gmail.com"
-    }
-  })
-    }}>Add Data</button>
-    </>
+    <div>
+      <h1>Hey Shivam</h1>
+      {user?.email}
+      {user?.password}
+      {user?.username}
+    </div>
   );
-}
+};
