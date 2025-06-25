@@ -11,6 +11,7 @@ jobs:
     - run: |
        echo {{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key 
        echo {{ secrets.KNOWN_HOSTS }} &> ~/.ssh/knows_hosts
+       mkdir .ssh
        ssh -i ~/ssh_key ubuntu@98.82.10.211
        cd ci-cd-deployment/ && git pull
        pnpm install 
