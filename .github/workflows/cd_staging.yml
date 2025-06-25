@@ -8,9 +8,8 @@ Jobs:
   redeploy_evrything:
     runs-on: ubuntu-latest
     name: Deploying evrything to the staging cluster
-
-  steps:
-    - run: 
+    steps:
+    - run: |
        echo {{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key  
        ssh -i ~/ssh_key root@98.82.10.211
        cd ci-cd-deployment/ && git pull
