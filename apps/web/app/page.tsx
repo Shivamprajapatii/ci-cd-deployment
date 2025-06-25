@@ -7,6 +7,7 @@ export default async function Home() {
   return (
     <div>
       <h1>Hey Shivam...</h1>
+      nothing to say
       {user?.email}
       {user?.password}
       {user?.username}
