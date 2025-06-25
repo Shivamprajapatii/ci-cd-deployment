@@ -9,25 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploying everything to the staging cluster
     steps:
-      - name: Setup SSH Key & Known Hosts
+      - name: Setup SSH Key and Disable Host Checking
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-
-          # Option 1: Disable host checking (CI safe for internal use)
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-
-          # Option 2: If you have KNOWN_HOSTS secret, use this instead:
-          # echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          # chmod 644 ~/.ssh/known_hosts
 
       - name: SSH and Deploy
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@98.82.10.211 << 'EOF'
             cd ci-cd-deployment/
             git pull
-            pnpm install 
+            pnpm install
             pnpm run build
             pnpm restart web-server
             pnpm restart fe-server
