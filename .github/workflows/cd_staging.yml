@@ -26,6 +26,6 @@ jobs:
             pnpm install
             pnpm run build
             pm2 restart web-server
-            pm2 restart fe-server
-            pm2 restart socket-server
+            pm2 restart http-server
+            pm2 restart  ws-server
           EOF
