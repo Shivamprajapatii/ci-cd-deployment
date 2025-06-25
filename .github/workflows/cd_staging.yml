@@ -12,13 +12,13 @@ jobs:
       - name: Setup SSH Key and Disable Host Checking
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa 
           chmod 600 ~/.ssh/id_rsa
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
       - name: SSH and Deploy
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@98.82.10.211 << 'EOF'
+          ssh -i ~/.ssh/id_rsa ubuntu@98.82.10.211
             cd ci-cd-deployment/
             git pull
             export NVM_DIR=~/.nvm
