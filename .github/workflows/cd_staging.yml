@@ -1,25 +1,20 @@
-name: Deploy to Staging
-
-on:
+name : Deploy to Staging
+on: 
   push:
-    branches:       # must be lowercase and correctly indented
-      - main
+    branches: [ main ]
 
-jobs:
-  redeploy_everything:
+jobs: 
+  redeploy_evrything:
     runs-on: ubuntu-latest
-    name: Deploying everything to the staging cluster
+    name: Deploying evrything to the staging cluster
     steps:
-      - name: SSH and deploy
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
-          chmod 600 ~/ssh_key
-          ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@98.82.10.211 << 'EOF'
-            cd ci-cd-deployment/
-            git pull
-            pnpm install
-            pnpm run build
-            pnpm restart web-server
-            pnpm restart fe-server
-            pnpm restart socket-server
-          EOF
+    - run: |
+       echo {{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key  
+       ssh -i ~/ssh_key ubuntu@98.82.10.211
+       cd ci-cd-deployment/ && git pull
+       pnpm install 
+       pnpm run build
+       pnpm restart web-server
+       pnpm restart fe-server
+       pnpm restart socket-server
+       EOF
