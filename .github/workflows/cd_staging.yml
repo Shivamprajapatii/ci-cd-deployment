@@ -1,0 +1,22 @@
+name : Deploy to Staging
+on : 
+  push:
+    Branches:
+      - "main"
+
+Jobs: 
+  redeploy_evrything:
+  name: Deploying evrything to the staging cluster
+
+  steps:
+    - name: SSH Into Server
+    - run: 
+       echo {{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key  
+       ssh -i ~/ssh_key root@98.82.10.211
+       cd ci-cd-deployment/ && git pull
+       pnpm install 
+       pnpm run build
+       pnpm restart web-server
+       pnpm restart fe-server
+       pnpm restart socket-server
+
