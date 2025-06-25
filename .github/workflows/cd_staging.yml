@@ -6,11 +6,12 @@ on :
 
 Jobs: 
   redeploy_evrything:
-  name: Deploying evrything to the staging cluster
+    runs-on: ubuntu-latest
+    name: Deploying evrything to the staging cluster
 
   steps:
-    - name: SSH Into Server
-    - run: 
+    name: SSH Into Server
+    run: 
        echo {{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key  
        ssh -i ~/ssh_key root@98.82.10.211
        cd ci-cd-deployment/ && git pull
