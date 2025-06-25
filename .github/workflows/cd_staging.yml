@@ -25,7 +25,7 @@ jobs:
             source ~/.nvm/nvm.sh
             pnpm install
             pnpm run build
-            pnpm restart web-server
-            pnpm restart fe-server
-            pnpm restart socket-server
+            pm2 restart web-server
+            pm2 restart fe-server
+            pm2 restart socket-server
           EOF
