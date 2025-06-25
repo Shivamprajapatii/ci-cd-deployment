@@ -1,10 +1,9 @@
 name : Deploy to Staging
 on : 
   push:
-    Branches:
-      - "main"
+    branches: [ main ]
 
-Jobs: 
+jobs: 
   redeploy_evrything:
     runs-on: ubuntu-latest
     name: Deploying evrything to the staging cluster
@@ -18,4 +17,4 @@ Jobs:
        pnpm restart web-server
        pnpm restart fe-server
        pnpm restart socket-server
-
+       EOF
